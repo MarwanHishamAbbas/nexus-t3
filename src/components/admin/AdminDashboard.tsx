@@ -15,12 +15,16 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-// import CreateProductForm from '@/components/product/CreateProductForm'
+import CreateProductForm from "./CreateProduct";
+import { api } from "~/trpc/server";
+import ProudctActions from "./Actions";
 
 async function AdminDashboard() {
+  const products = await api.product.products();
+
   return (
     <div className="mx-auto flex max-w-7xl flex-col px-3">
-      {/* <CreateProductForm /> */}
+      <CreateProductForm />
       <Card>
         <CardHeader>
           <CardTitle>Products</CardTitle>
@@ -44,20 +48,20 @@ async function AdminDashboard() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {/* {products.map((product, idx) => (
+              {products.reverse().map((product, idx) => (
                 <TableRow key={idx}>
-                  <TableCell className='hidden sm:table-cell'>
+                  <TableCell className="hidden sm:table-cell">
                     <Image
-                      alt='Product image'
-                      className='aspect-square rounded-md object-cover'
-                      height='64'
-                      src='/product.png'
-                      width='64'
+                      alt="Product image"
+                      className="aspect-square rounded-md object-cover"
+                      height="64"
+                      src="/product.png"
+                      width="64"
                     />
                   </TableCell>
-                  <TableCell className='font-medium'>{product.title}</TableCell>
+                  <TableCell className="font-medium">{product.title}</TableCell>
                   <TableCell>{product.category}</TableCell>
-                  <TableCell className='hidden md:table-cell'>
+                  <TableCell className="hidden md:table-cell">
                     ${product.price}
                   </TableCell>
 
@@ -65,7 +69,7 @@ async function AdminDashboard() {
                     <ProudctActions productId={product.id} />
                   </TableCell>
                 </TableRow>
-              ))} */}
+              ))}
             </TableBody>
           </Table>
         </CardContent>

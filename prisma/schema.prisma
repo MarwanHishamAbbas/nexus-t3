@@ -13,13 +13,10 @@ datasource db {
 
 model Product {
     id          Int     @id @default(autoincrement())
-    slug        String  @unique
     title       String
     category    String
     description String?
     price       Int
     fileUrl     String
     imageUrl    String
-
-    @@map("products")
 }
