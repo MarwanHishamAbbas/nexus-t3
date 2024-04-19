@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { FC, HTMLAttributes } from "react"
-import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
+import type { FC, HTMLAttributes } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 interface MaskTextProps extends HTMLAttributes<HTMLDivElement> {}
 
 const MaskText: FC<MaskTextProps> = ({ children }, ...props) => {
-  const textRef = useRef(null)
+  const textRef = useRef(null);
   const textAnimation = {
     initial: {
       y: "100%",
@@ -21,8 +21,8 @@ const MaskText: FC<MaskTextProps> = ({ children }, ...props) => {
         ease: [0.45, 0, 0.55, 1],
       },
     },
-  }
-  const inView = useInView(textRef, { once: true })
+  };
+  const inView = useInView(textRef, { once: true });
 
   return (
     <motion.div
@@ -35,7 +35,7 @@ const MaskText: FC<MaskTextProps> = ({ children }, ...props) => {
     >
       {children}
     </motion.div>
-  )
-}
+  );
+};
 
-export default MaskText
+export default MaskText;

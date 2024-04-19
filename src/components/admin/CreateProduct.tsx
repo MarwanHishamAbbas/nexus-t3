@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { Button } from "~/components/ui/button";
@@ -50,7 +51,7 @@ const CreateProductForm = ({}) => {
       category: "Templates",
       description: "",
       title: "",
-      price: "",
+      price: 0,
     },
   });
 
@@ -82,7 +83,11 @@ const CreateProductForm = ({}) => {
           <DialogTitle>Add Product</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4"
+            noValidate
+          >
             <FormField
               control={form.control}
               name="title"
@@ -137,10 +142,16 @@ const CreateProductForm = ({}) => {
             <FormField
               control={form.control}
               name="price"
-              render={({ field }) => (
+              render={({ field: { value, ...fieldValues } }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Product Price" {...field} />
+                    <Input
+                      placeholder="Product Price"
+                      {...fieldValues}
+                      onChange={(e) => {
+                        fieldValues.onChange(parseInt(e.target.value));
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -20,7 +20,7 @@ import { api } from "~/trpc/server";
 import ProudctActions from "./Actions";
 
 async function AdminDashboard() {
-  const products = await api.product.products();
+  const products = await api.product.products({ limit: 10 });
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col px-3">
@@ -55,7 +55,7 @@ async function AdminDashboard() {
                       alt="Product image"
                       className="aspect-square rounded-md object-cover"
                       height="64"
-                      src={product.imageUrl}
+                      src={product.image}
                       width="64"
                     />
                   </TableCell>

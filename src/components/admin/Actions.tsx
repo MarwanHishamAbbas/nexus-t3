@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,7 @@ interface ProudctActionsProps {
   productId: number | null;
 }
 
-const ProudctActions: FC<ProudctActionsProps> = ({ productId }) => {
+const ProudctActions: FC<ProudctActionsProps> = ({}) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
