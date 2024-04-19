@@ -39,6 +39,7 @@ import { Textarea } from "~/components/ui/textarea";
 import { api } from "~/trpc/react";
 
 import { useRouter } from "next/navigation";
+import { formAction } from "./action";
 
 const CreateProductForm = ({}) => {
   // 1. Define your form.
@@ -54,16 +55,19 @@ const CreateProductForm = ({}) => {
   });
 
   const router = useRouter();
+
   const { mutate: createProduct, isPending } = api.product.create.useMutation({
     onSuccess: () => {
       router.refresh();
-      form.reset();
     },
   });
 
   // 2. Define a submit handler.
   async function onSubmit(values: TProductSchema) {
-    createProduct(values);
+    const formData = new FormData();
+    formData.append("image", values.image);
+    const imageUrl = await formAction(formData);
+    createProduct({ ...values, image: imageUrl ?? "" });
   }
   return (
     <Dialog>
@@ -142,15 +146,38 @@ const CreateProductForm = ({}) => {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field: { value, ...fieldValues } }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...fieldValues}
+                      type="file"
+                      placeholder="Upload Image"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const image = e.target.files?.[0];
+                        fieldValues.onChange(image);
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <Button
-              disabled={isPending}
+              disabled={isPending || form.control._formState.isSubmitting}
               className="w-full"
               size={"lg"}
               type="submit"
             >
               Create Product
-              {isPending && <Loader2 className="ml-1 size-5 animate-spin" />}
+              {isPending || form.control._formState.isSubmitting ? (
+                <Loader2 className="ml-1 size-5 animate-spin" />
+              ) : null}
             </Button>
           </form>
         </Form>

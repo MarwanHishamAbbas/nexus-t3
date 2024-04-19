@@ -55,7 +55,7 @@ async function AdminDashboard() {
                       alt="Product image"
                       className="aspect-square rounded-md object-cover"
                       height="64"
-                      src="/product.png"
+                      src={product.imageUrl}
                       width="64"
                     />
                   </TableCell>
