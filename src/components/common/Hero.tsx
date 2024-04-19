@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { type FC } from "react";
 import { Input } from "../ui/input";
 import { Mouse, PaintRollerIcon, PlayIcon } from "lucide-react";
 import patternLeft from "../../assets/pattern-left.svg";
@@ -10,10 +10,13 @@ import marwan from "../../assets/Marwan.jpeg";
 
 import Block from "~/animations/Block";
 import ImageReveal from "~/animations/ImageReveal";
-import { api } from "~/trpc/react";
 
-const HomeHero = () => {
-  const {} = api.product.create.useMutation();
+interface PageHeroProps {
+  title: string;
+  description: string;
+}
+
+const PageHero: FC<PageHeroProps> = ({ title, description }) => {
   return (
     <div className="grid grid-cols-1 gap-5 text-center lg:grid-cols-4">
       <ImageReveal>
@@ -21,7 +24,7 @@ const HomeHero = () => {
       </ImageReveal>
       <Block className="col-span-2 space-y-6">
         <div className="inline-flex items-center justify-center gap-2">
-          <span className="text-secondary text-sm">Created By</span>
+          <span className="text-sm text-secondary">Created By</span>
           <Image
             src={marwan}
             alt="Marwan"
@@ -30,19 +33,15 @@ const HomeHero = () => {
           <h3 className="text-sm font-medium">Marwan Hisham</h3>
         </div>
 
-        <h1 className="text-4xl font-semibold">The Future Of E-Commerce</h1>
+        <h1 className="text-4xl font-semibold">{title}</h1>
 
-        <p className="text-secondary text-sm">
-          Ultimate Framer template to transform your website into an eCommerce
-          powerhouse. Sell digital products easily & beautifully, powered by the
-          Framer CMS.{" "}
-        </p>
+        <p className="text-sm text-secondary">{description}</p>
         <Input
           placeholder="Ex....Website Templates"
           className="gradient-bg mx-auto lg:w-3/4"
         />
 
-        <Block className="text-secondary  inline-flex flex-wrap justify-evenly gap-5 text-xs">
+        <Block className="inline-flex  flex-wrap justify-evenly gap-5 text-xs text-secondary">
           <div className="flex items-center gap-2">
             <PaintRollerIcon />
             <p>Easily Customizable</p>
@@ -68,4 +67,4 @@ const HomeHero = () => {
   );
 };
 
-export default HomeHero;
+export default PageHero;

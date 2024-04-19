@@ -12,14 +12,19 @@ interface ProductsListProps {
 }
 
 const ProductsList: FC<ProductsListProps> = async ({ query }) => {
-  const products = await api.product.products({ category: query.category });
+  const products = await api.product.products({
+    category: query.category,
+    limit: 3,
+  });
+  if (products.length === 0) return;
+
   return (
     <div>
       <Block className="mb-4 flex items-center gap-3">
-        <h1>{query?.category}</h1>
+        <h1 className="text-xl font-semibold">{query?.category}</h1>
 
         <Link
-          href="/framer-templates"
+          href={`/${query.category}`}
           className={buttonVariants({
             variant: "link",
             size: "sm",

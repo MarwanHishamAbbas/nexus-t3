@@ -21,7 +21,6 @@ const ImageReveal: FC<ImageRevealProps> = ({ children }, ...props) => {
       transition: {
         duration: 1,
         ease: [0.45, 0, 0.55, 1],
-        delay: 1.2,
       },
     },
   };

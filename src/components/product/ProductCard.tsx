@@ -16,9 +16,9 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         <Image
           src={product.image}
           alt="Image"
-          width={200}
-          height={200}
-          className="w-full rounded-lg"
+          width={1000}
+          height={1000}
+          className="rounded-lg"
           loading="eager"
         />
       </ImageReveal>

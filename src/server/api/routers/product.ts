@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { TRPCProductSchema } from "~/lib/validator/product-validator";
 import { QueryValidator } from "~/lib/validator/query-validator";
 
@@ -15,6 +16,15 @@ export const productRouter = createTRPCRouter({
           price: input.price,
           description: input.description,
           title: input.title,
+        },
+      });
+    }),
+  delete: publicProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input: productId }) => {
+      await ctx.db.product.delete({
+        where: {
+          id: productId,
         },
       });
     }),

@@ -59,6 +59,9 @@ const CreateProductForm = ({}) => {
 
   const { mutate: createProduct, isPending } = api.product.create.useMutation({
     onSuccess: () => {
+      form.resetField("image");
+      form.resetField("price");
+      form.reset();
       router.refresh();
     },
   });

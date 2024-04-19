@@ -1,3 +1,5 @@
+"use client";
+
 import type { FC } from "react";
 import {
   DropdownMenu,
@@ -7,25 +9,40 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { MoreHorizontal } from "lucide-react";
+import { Loader2, MoreHorizontal } from "lucide-react";
+import { api } from "~/trpc/react";
+import { useRouter } from "next/navigation";
 
 interface ProudctActionsProps {
-  productId: number | null;
+  productId: number;
 }
 
-const ProudctActions: FC<ProudctActionsProps> = ({}) => {
+const ProudctActions: FC<ProudctActionsProps> = ({ productId }) => {
+  const router = useRouter();
+  const { mutate: deleteProduct, isPending } = api.product.delete.useMutation({
+    onSuccess: () => {
+      router.refresh();
+    },
+  });
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button aria-haspopup="true" size="icon" variant="ghost">
-          <MoreHorizontal className="size-5" />
+          {isPending ? (
+            <Loader2 className="size-5 animate-spin" />
+          ) : (
+            <MoreHorizontal className="size-5" />
+          )}
           <span className="sr-only">Toggle menu</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Delete</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => deleteProduct(productId)}>
+          Delete
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

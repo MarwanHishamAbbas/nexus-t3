@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const QueryValidator = z.object({
-  category: z.enum(["Templates", "Wallpapers", "Icons", "Fonts"]).optional(),
+  category: z.string().optional(),
   limit: z.number().optional(),
 });
 
