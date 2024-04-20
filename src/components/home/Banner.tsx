@@ -8,7 +8,7 @@ import ImageReveal from "~/animations/ImageReveal";
 
 const Banner = ({}) => {
   return (
-    <div className="grid grid-cols-1 -space-y-24 text-center lg:grid-cols-4 lg:-space-x-24 lg:-space-y-0">
+    <div className="mb-16 grid grid-cols-1 -space-y-24 text-center lg:mb-32 lg:grid-cols-4 lg:-space-x-24 lg:-space-y-0">
       <ImageReveal>
         <Image src={patternRight as string} alt="Pattern" />
       </ImageReveal>
@@ -18,7 +18,7 @@ const Banner = ({}) => {
           Want unlimited access to <br /> our entire catalogue?
         </h1>
 
-        <p className="text-secondary mx-auto text-sm lg:w-3/4">
+        <p className="mx-auto text-sm text-secondary lg:w-3/4">
           Get unlimited access to our full collection of templates, backgrounds,
           mockups, fonts and more and take your workflow to the next level.
         </p>

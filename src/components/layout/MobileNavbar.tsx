@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 
-export const NAV_LINKS = ["Templates", "Backgrounds", "Icons", "Fonts"];
+export const NAV_LINKS = ["Templates", "Wallpapers", "Icons", "Fonts"];
 
 function MobileNavbar() {
   return (

@@ -14,11 +14,13 @@ export const ProductSchema = z.object({
   image: imageSchema,
 });
 export const TRPCProductSchema = z.object({
-  title: requiredString,
-  description: requiredString.max(5000),
+  id: z.number(),
+  title: z.string(),
+  description: z.string().max(5000),
   price: z.number(),
-  category: requiredString,
-  image: requiredString,
+  category: z.string(),
+  image: z.string(),
+  file: z.string(),
 });
 
 export type TProductSchema = z.infer<typeof ProductSchema>;

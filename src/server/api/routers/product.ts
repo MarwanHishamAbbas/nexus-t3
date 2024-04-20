@@ -42,4 +42,14 @@ export const productRouter = createTRPCRouter({
       });
       return products;
     }),
+  productDetails: publicProcedure
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+      const product = await ctx.db.product.findUnique({
+        where: {
+          id: parseInt(input),
+        },
+      });
+      return product;
+    }),
 });

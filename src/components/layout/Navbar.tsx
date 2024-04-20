@@ -4,15 +4,14 @@ import Link from "next/link";
 import NexusLogo from "../../assets/logo.svg";
 import { buttonVariants } from "../ui/button";
 
-import { generateSlug } from "~/lib/utils";
 import { ArrowRight } from "lucide-react";
 import MobileNavbar from "./MobileNavbar";
 
-export const NAV_LINKS = ["Templates", "Backgrounds", "Icons", "Fonts"];
+export const NAV_LINKS = ["Templates", "Wallpapers", "Icons", "Fonts"];
 
 const Navbar = async ({}) => {
   return (
-    <header className="bg-background/60 border-input fixed left-0 right-0 top-0 z-50 flex h-16 items-center border-b backdrop-blur-sm">
+    <header className="fixed left-0 right-0 top-0 z-50 flex h-16 items-center border-b border-input bg-background/60 backdrop-blur-sm">
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-3">
         <Link href="/" className="flex items-center gap-2">
           <Image src={NexusLogo as string} alt="Nexus Logo" />
@@ -23,7 +22,7 @@ const Navbar = async ({}) => {
             <li key={idx}>
               <Link
                 className={buttonVariants({ variant: "link" })}
-                href={generateSlug(link)}
+                href={`/products/${link}`}
               >
                 {link}
               </Link>
