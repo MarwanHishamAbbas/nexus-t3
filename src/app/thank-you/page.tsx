@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { type FC } from "react";
 import { buttonVariants } from "~/components/ui/button";
 import { api } from "~/trpc/server";
@@ -8,14 +7,15 @@ interface PageProps {
 }
 
 const Page: FC<PageProps> = async ({ searchParams }) => {
-  const product = await api.product.productDetails(
-    searchParams.productId as string,
-  );
+  const orderId = searchParams.orderId as string;
+  const order = await api.payment.orderStatus(parseInt(orderId));
+  const product = await api.product.productDetails(order.productId);
+  console.log(order);
+
   return (
     <main>
-      <a download href={product?.image ?? ""} className={buttonVariants({})}>
-        Download
-      </a>
+      <h1>{product?.title}</h1>
+      <p>{order.isPaid ? "Paid" : "Not Paid"}</p>
     </main>
   );
 };

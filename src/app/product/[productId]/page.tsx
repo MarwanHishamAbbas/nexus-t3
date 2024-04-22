@@ -18,12 +18,14 @@ interface PageProps {
 
 const Page: FC<PageProps> = ({ params }) => {
   const { productId } = params;
-  const { data: product } = api.product.productDetails.useQuery(productId);
+  const { data: product } = api.product.productDetails.useQuery(
+    parseInt(productId),
+  );
   const router = useRouter();
 
   const { mutate, isPending } = api.payment.buyProduct.useMutation({
     onSuccess: (data) => {
-      router.replace(data.url ?? "");
+      router.replace(data?.url ?? "");
     },
   });
 
