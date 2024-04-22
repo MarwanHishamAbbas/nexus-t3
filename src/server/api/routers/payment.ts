@@ -20,7 +20,7 @@ export const paymentRouter = createTRPCRouter({
           payment_method_types: ["paypal", "card"],
           mode: "payment",
           metadata: {
-            order: order.id,
+            orderId: order.id,
           },
           line_items: [
             {
@@ -55,6 +55,6 @@ export const paymentRouter = createTRPCRouter({
         },
       });
       if (!order) throw new TRPCError({ code: "NOT_FOUND" });
-      return { isPaid: order.isPaid, productId: order.productId };
+      return order;
     }),
 });

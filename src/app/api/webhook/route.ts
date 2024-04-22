@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
-import Stripe from "stripe";
+import type Stripe from "stripe";
 import { stripe } from "~/lib/stripe/Stripe";
 import { db } from "~/server/db";
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const signature = req.headers.get("stripe-signature") ?? "";
 
   try {
@@ -20,7 +20,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       where: { id: parseInt(session.metadata.orderId) },
       data: { isPaid: true },
     });
-    console.log("Order Updated");
 
     return NextResponse.json({ status: 200, event: event });
   } catch (error) {
