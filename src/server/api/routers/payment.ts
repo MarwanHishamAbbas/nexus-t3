@@ -1,6 +1,6 @@
 import { TRPCProductSchema } from "~/lib/validator/product-validator";
 import { createTRPCRouter, publicProcedure } from "../trpc";
-import { stripe } from "~/Stripe";
+import { stripe } from "~/lib/stripe/Stripe";
 import { z } from "zod";
 
 export const paymentRouter = createTRPCRouter({
@@ -12,6 +12,9 @@ export const paymentRouter = createTRPCRouter({
         cancel_url: "http://localhost:3000/",
         payment_method_types: ["paypal", "card"],
         mode: "payment",
+        metadata: {
+          productId: input.id,
+        },
         line_items: [
           {
             price_data: {
@@ -20,9 +23,6 @@ export const paymentRouter = createTRPCRouter({
                 name: input.title,
                 description: input.description,
                 images: [input.image],
-                metadata: {
-                  productId: input.id,
-                },
               },
               unit_amount: input.price * 100,
             },
